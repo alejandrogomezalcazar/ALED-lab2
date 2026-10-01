@@ -1,14 +1,15 @@
 package es.upm.aled.lab2.kinematics;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class representing one segment in the GUI that paints the exoskeleton bones on
+ * Class representing one segment in the GUI that paints the exoskeleton's bones on
  * the screen. Each segment is identified by its length and the angle it forms with 
  * the previous segment. Every Segment has a List of their
  * children Segments; those it's connected to.
  * 
- * @author alejandrogomezalcazar
+ * @author alejandro.gomezalcazar
  */
 public class Segment {
 	
@@ -19,6 +20,7 @@ public class Segment {
 	public Segment (double length, double angle) {
 		this.length = length;
 		this.angle = angle;
+		this.children = new ArrayList<>();
 	}
 
 	public double getLength() {
@@ -44,7 +46,7 @@ public class Segment {
 	 * @param measurement The Segment to be added.
 	 */
 	public void addChild (Segment child) {
-		if (!children.contains(child))
+		if (!this.children.contains(child))
 			children.add(child);
 	}
 

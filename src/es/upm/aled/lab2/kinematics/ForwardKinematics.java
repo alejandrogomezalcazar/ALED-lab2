@@ -21,16 +21,30 @@ public class ForwardKinematics {
 	 * @param root    The root of the tree of Segments.
 	 * @param originX The X coordinate for the origin point of the tree.
 	 * @param originY The Y coordinate for the origin point of the tree.
-	 * @return The tree of Nodes that represent the exoskeleton position in absolute
+	 * @return The tree of Nodes that represent the exoskeleton's position in absolute
 	 *         coordinates.
 	 */
 	// Public method: returns the root of the position tree
 	public static Node computePositions(Segment root, double originX, double originY) {
 		// TODO: Implemente este método
+		return computePositions(root, originX, originY, 0);
 	}
 
 	// Private helper method that implements the recursive algorithm
 	private static Node computePositions(Segment link, double baseX, double baseY, double accumulatedAngle) {
 		// TODO: Implemente este método
+		accumulatedAngle += link.getAngle();
+		
+		double x = baseX + link.getLength() * Math.cos(accumulatedAngle);
+		double y = baseY + link.getLength() * Math.sin(accumulatedAngle);
+		
+		Node n = new Node(x,y);
+		
+		for (Segment hijo : link.getChildren()) {
+			Node nodoHijo = computePositions(hijo, x, y, accumulatedAngle);
+			n.addChild(nodoHijo);
+		}
+		
+		return n;
 	}
 }
